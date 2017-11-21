@@ -109,9 +109,9 @@ class TwoLayerNet(object):
         # automated tests, make sure that your L2 regularization includes a factor #
         # of 0.5 to simplify the expression for the gradient.                      #
         ############################################################################
-        loss, dsoftmax = softmax_loss(scores, y)
+        loss, dscores = softmax_loss(scores, y)
         loss += 0.5 * self.reg * (np.sum(np.sum(W1**2)) + np.sum(np.sum(W2**2)))
-        da1, grads['W2'], grads['b2'] = affine_backward(dsoftmax, aff_cache2)
+        da1, grads['W2'], grads['b2'] = affine_backward(dscores, aff_cache2)
         grads['W2'] += self.reg * W2
         dh1 = relu_backward(da1, h1)
         _, grads['W1'], grads['b1'] = affine_backward(dh1, aff_cache1)
